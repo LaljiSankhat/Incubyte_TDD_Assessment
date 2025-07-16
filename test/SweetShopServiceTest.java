@@ -3,6 +3,9 @@ package test;
 import model.Sweet;
 import service.SweetShopService;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.*;
 
 public class SweetShopServiceTest {
@@ -30,5 +33,19 @@ public class SweetShopServiceTest {
     @AfterEach
     public void tearDown() {
         shop.clearAll();
+    }
+
+    @Test
+    public void testAddSweetWithDuplicateIdShouldFail() {
+
+        // Attempting to add a sweet with an ID that already exists (1001).
+        // The shop already contains a sweet with ID 1001 from the setUp() method.
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            shop.addSweet(new Sweet(1001, "Duplicate Sweet", "Milk-Based", 10, 5));
+        });
+
+        // Verifying that the correct exception message is returned
+        assertEquals("Sweet ID must be unique.", exception.getMessage());
     }
 }
