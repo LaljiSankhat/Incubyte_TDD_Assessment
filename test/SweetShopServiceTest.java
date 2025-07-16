@@ -6,6 +6,8 @@ import service.SweetShopService;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.List;
+
 import org.junit.jupiter.api.*;
 
 public class SweetShopServiceTest {
@@ -47,5 +49,14 @@ public class SweetShopServiceTest {
 
         // Verifying that the correct exception message is returned
         assertEquals("Sweet ID must be unique.", exception.getMessage());
+    }
+
+    
+    @Test
+    public void testDeleteSweet() {
+        // Delete the sweet with ID 1003 and verify that the list size is reduced by 1
+        shop.deleteSweet(1003);
+        List<Sweet> all = shop.getAllSweets();
+        assertEquals(2, all.size());
     }
 }
