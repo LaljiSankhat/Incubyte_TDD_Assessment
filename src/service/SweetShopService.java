@@ -124,4 +124,50 @@ public class SweetShopService {
         Sweet sweet = findSweetById(id);
         sweet.setQuantity(sweet.getQuantity() + qty);
     }
+
+    /**
+     * Sorts the list of sweets based on a specified field and order.
+     */
+    public List<Sweet> sortSweets(String sortBy, boolean ascending) {
+        List<Sweet> sorted = new ArrayList<>(sweets);
+
+        Comparator<Sweet> comparator;
+
+        // Select comparator based on the sortBy field
+        switch (sortBy.toLowerCase()) {
+            case "name":
+                comparator = Comparator.comparing(Sweet::getName, String.CASE_INSENSITIVE_ORDER);
+                break;
+            case "category":
+                comparator = Comparator.comparing(Sweet::getCategory, String.CASE_INSENSITIVE_ORDER);
+                break;
+            case "price":
+                comparator = Comparator.comparingDouble(Sweet::getPrice);
+                break;
+            case "quantity":
+                comparator = Comparator.comparingInt(Sweet::getQuantity);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid sort field: " + sortBy);
+        }
+
+        // Reverse comparator if descending order is requested
+        if (!ascending) {
+            comparator = comparator.reversed();
+        }
+
+        // Sort the list using the chosen comparator
+        sorted.sort(comparator);
+        return sorted;
+    }
+
+    /**
+     * Clears all sweets from the sweet shop inventory.
+     * 
+     * Primarily used for resetting the state during testing.
+     */
+    public void clearAll() {
+        sweets.clear(); 
+    }
+
 }
