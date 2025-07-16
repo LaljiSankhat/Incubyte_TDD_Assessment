@@ -92,4 +92,28 @@ public class SweetShopService {
         }
         return result;
     }
+
+    /**
+     * Finds a sweet by its unique ID.
+     */
+    private Sweet findSweetById(int id) {
+        for (Sweet s : sweets) {
+            if (s.getId() == id) {
+                return s;
+            }
+        }
+        throw new SweetNotFoundException("Sweet not found with ID: " + id);
+    }
+
+    /**
+     * Purchases a specific quantity of a sweet by ID.
+     * Reduces the quantity if enough stock is available.
+     */
+    public void purchaseSweet(int id, int qty) {
+        Sweet sweet = findSweetById(id);
+        if (sweet.getQuantity() < qty) {
+            throw new IllegalArgumentException("Not enough stock.");
+        }
+        sweet.setQuantity(sweet.getQuantity() - qty);
+    }
 }
