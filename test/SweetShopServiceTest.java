@@ -11,7 +11,7 @@ import java.util.List;
 import org.junit.jupiter.api.*;
 
 public class SweetShopServiceTest {
-    
+
     private SweetShopService shop;
 
     /**
@@ -51,7 +51,6 @@ public class SweetShopServiceTest {
         assertEquals("Sweet ID must be unique.", exception.getMessage());
     }
 
-    
     @Test
     public void testDeleteSweet() {
         // Delete the sweet with ID 1003 and verify that the list size is reduced by 1
@@ -60,12 +59,19 @@ public class SweetShopServiceTest {
         assertEquals(2, all.size());
     }
 
-    
     @Test
     public void testSearchByName() {
-        // Verifies that searchByName correctly returns sweets matching a partial, case-insensitive name
+        // Verifies that searchByName correctly returns sweets matching a partial,
+        // case-insensitive name
         List<Sweet> result = shop.searchByName("jamun");
         assertEquals(1, result.size());
         assertEquals("Gulab Jamun", result.get(0).getName());
+    }
+
+    @Test
+    public void testSearchByCategory() {
+        // Verifies that searching sweets by category returns correct matches
+        List<Sweet> result = shop.searchByCategory("Milk-Based");
+        assertEquals(1, result.size());
     }
 }
