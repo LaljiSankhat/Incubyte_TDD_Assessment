@@ -4,6 +4,7 @@ import model.Sweet;
 import service.SweetShopService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
@@ -60,25 +61,40 @@ public class SweetShopServiceTest {
     }
 
     @Test
+    // Verifies that searchByName correctly returns sweets matching a partial,
+    // case-insensitive name
     public void testSearchByName() {
-        // Verifies that searchByName correctly returns sweets matching a partial,
-        // case-insensitive name
         List<Sweet> result = shop.searchByName("jamun");
         assertEquals(1, result.size());
         assertEquals("Gulab Jamun", result.get(0).getName());
     }
 
     @Test
+    // Verifies that searching sweets by category returns correct matches
     public void testSearchByCategory() {
-        // Verifies that searching sweets by category returns correct matches
         List<Sweet> result = shop.searchByCategory("Milk-Based");
         assertEquals(1, result.size());
     }
 
     @Test
+    // Checks that sweets within a specified price range are correctly returned
     public void testSearchByPriceRange() {
-        // Checks that sweets within a specified price range are correctly returned
         List<Sweet> result = shop.searchByPriceRange(10, 40);
         assertEquals(2, result.size());
+    }
+
+    @Test
+    // Validates successful purchase of sweet and quantity update
+    public void testPurchaseSweetSuccess() {
+        shop.purchaseSweet(1003, 3);
+        Sweet gulab = null;
+        for (Sweet s : shop.getAllSweets()) {
+            if (s.getId() == 1003) {
+                gulab = s;
+                break;
+            }
+        }
+        assertNotNull(gulab);
+        assertEquals(2, gulab.getQuantity());
     }
 }
