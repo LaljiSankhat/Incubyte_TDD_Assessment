@@ -59,4 +59,13 @@ public class SweetShopServiceTest {
         List<Sweet> all = shop.getAllSweets();
         assertEquals(2, all.size());
     }
+
+    
+    @Test
+    public void testSearchByName() {
+        // Verifies that searchByName correctly returns sweets matching a partial, case-insensitive name
+        List<Sweet> result = shop.searchByName("jamun");
+        assertEquals(1, result.size());
+        assertEquals("Gulab Jamun", result.get(0).getName());
+    }
 }
