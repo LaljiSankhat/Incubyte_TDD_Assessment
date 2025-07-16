@@ -74,4 +74,11 @@ public class SweetShopServiceTest {
         List<Sweet> result = shop.searchByCategory("Milk-Based");
         assertEquals(1, result.size());
     }
+
+    @Test
+    public void testSearchByPriceRange() {
+        // Checks that sweets within a specified price range are correctly returned
+        List<Sweet> result = shop.searchByPriceRange(10, 40);
+        assertEquals(2, result.size());
+    }
 }
