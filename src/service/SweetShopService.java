@@ -54,13 +54,26 @@ public class SweetShopService {
 
     /**
      * Searches for sweets whose names contain the given keyword (case-insensitive).
-    */
+     */
     public List<Sweet> searchByName(String name) {
         List<Sweet> result = new ArrayList<>();
 
         // Loop through all sweets and check if name contains the given keyword (ignoring case)
         for (Sweet s : sweets) {
             if (s.getName().toLowerCase().contains(name.toLowerCase())) {
+                result.add(s);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Searches for sweets that belong to a specific category (case-insensitive).
+     */
+    public List<Sweet> searchByCategory(String category) {
+        List<Sweet> result = new ArrayList<>();
+        for (Sweet s : sweets) {
+            if (s.getCategory().equalsIgnoreCase(category)) {
                 result.add(s);
             }
         }
