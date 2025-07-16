@@ -116,4 +116,12 @@ public class SweetShopService {
         }
         sweet.setQuantity(sweet.getQuantity() - qty);
     }
+
+    /**
+     * Adds more stock (quantity) to an existing sweet by ID.
+     */
+    public void restockSweet(int id, int qty) {
+        Sweet sweet = findSweetById(id);
+        sweet.setQuantity(sweet.getQuantity() + qty);
+    }
 }
