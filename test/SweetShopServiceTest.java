@@ -106,4 +106,19 @@ public class SweetShopServiceTest {
             shop.purchaseSweet(1003, 10);
         });
     }
+
+    @Test
+    // Confirms that restocking a sweet correctly increases its quantity
+    public void testRestockSweet() {
+        shop.restockSweet(1002, 5);
+        Sweet sweet = null;
+        for (Sweet s : shop.getAllSweets()) {
+            if (s.getId() == 1002) {
+                sweet = s;
+                break;
+            }
+        }
+        assertNotNull(sweet);
+        assertEquals(20, sweet.getQuantity());
+    }
 }
