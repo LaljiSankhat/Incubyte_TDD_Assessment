@@ -130,4 +130,12 @@ public class SweetShopServiceTest {
             shop.deleteSweet(9999);
         });
     }
+
+    @Test
+    // Verifies that sweets are sorted by price in descending order
+    public void testSortByPriceDescending() {
+        List<Sweet> result = shop.sortSweets("price", false);
+        assertEquals("Kaju Katli", result.get(0).getName()); // ₹50
+        assertEquals("Gulab Jamun", result.get(2).getName()); // ₹10
+    }
 }
