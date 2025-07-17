@@ -2,6 +2,7 @@ package test;
 
 import model.Sweet;
 import service.SweetShopService;
+import exception.SweetNotFoundException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -120,5 +121,13 @@ public class SweetShopServiceTest {
         }
         assertNotNull(sweet);
         assertEquals(20, sweet.getQuantity());
+    }
+
+    @Test
+    // Ensures proper exception is thrown when attempting to delete a non-existing sweet
+    public void testDeleteNonExistingSweet() {
+        assertThrows(SweetNotFoundException.class, () -> {
+            shop.deleteSweet(9999);
+        });
     }
 }
