@@ -97,4 +97,13 @@ public class SweetShopServiceTest {
         assertNotNull(gulab);
         assertEquals(2, gulab.getQuantity());
     }
+
+    
+    @Test
+    // Ensures an exception is thrown when purchasing more than available stock
+    public void testPurchaseSweetFailIfNotEnoughStock() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            shop.purchaseSweet(1003, 10);
+        });
+    }
 }
